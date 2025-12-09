@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(tasklist:*)",
+      "Bash(dir:*)",
+      "Bash(ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@84.247.173.144 \"echo ''SSH connection successful'' && uname -a && cat /etc/os-release\")",
+      "Bash(ssh root@84.247.173.144 \"docker --version && docker compose version\")",
+      "Bash(ssh root@84.247.173.144 \"mkdir -p /opt/intelliagent\")",
+      "Bash(scp:*)",
+      "Bash(ssh root@84.247.173.144 \"cd /opt/intelliagent && docker compose -f compose.prod.yaml down || true\")",
+      "Bash(ssh root@84.247.173.144 \"cd /opt/intelliagent && docker compose -f compose.prod.yaml up -d --build\")",
+      "Bash(ssh root@84.247.173.144 \"cd /opt/intelliagent/frontend && ls -la\")",
+      "Bash(ssh root@84.247.173.144 \"rm -rf /opt/intelliagent && mkdir -p /opt/intelliagent\")",
+      "Bash(ssh:*)",
+      "Bash(curl -I http://84.247.173.144)",
+      "Bash(curl:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(docker compose:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker stop:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd IntelliAgent features: research agents, Trello integration, and frontend\n\nAdded comprehensive research capabilities with AI agents and tools, Trello task management integration, production Docker compose configuration, and React-based frontend interface. Enhanced documentation with API examples and deployment guide.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
