@@ -3,6 +3,7 @@ services:
   db_service:
     image: postgres:17.5
     container_name: intelliagent_db
+    restart: unless-stopped
     ports:
       - 5433:5432
     environment:
@@ -25,44 +26,39 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: intelliagent_backend
+    restart: unless-stopped
     ports:
       - 8080:8000
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
     environment:
       - PORT=8000
       - MY_PROJECT=IntelliAgent
     env_file:
       - .env
-    volumes:
-      - ./backend/src:/app
     depends_on:
       db_service:
         condition: service_healthy
     networks:
       - intelliagent_network
-    develop:
-      watch:
-        - action: rebuild
-          path: backend/requirements.txt
-        - action: rebuild
-          path: backend/Dockerfile
-        - action: restart
-          path: backend/src/
 
   # Frontend con React
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=/api
     container_name: intelliagent_frontend
+    restart: unless-stopped
     ports:
+      - 80:80
       - 3000:80
     depends_on:
       - backend
     networks:
       - intelliagent_network
     environment:
-      - VITE_API_URL=http://localhost:8080/api
+      - VITE_API_URL=/api
 
 networks:
   intelliagent_network:
