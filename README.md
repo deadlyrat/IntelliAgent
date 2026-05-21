@@ -1,406 +1,123 @@
-# IntelliAgent
+# IntelliAgent 🤖
 
-**Ecosistema Inteligente para la Automatización de la Investigación, Análisis y Gestión de Tareas**
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat&logo=fastapi&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat&logo=langchain&logoColor=white)
+![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=flat&logo=langchain&logoColor=white)
+![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=flat&logo=openai&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql&logoColor=white)
 
----
+> **Multi-agent AI system for automated research, summarization, data extraction, and task management.**
 
-## Descripción del Proyecto
-
-IntelliAgent es un sistema de agentes de inteligencia artificial multifuncional desarrollado como proyecto final de la asignatura de Lenguajes de Programación. El sistema es capaz de realizar tareas complejas como investigación automatizada, síntesis de información, extracción de datos estructurados, y gestión de tareas en plataformas externas.
-
-### Autores
-- Pablo Aguirre
-- José Herrera
-
-### Institución
-Universidad Tecnológica de Panamá
-Facultad de Ingeniería de Sistemas Computacionales
-Grupo: 1M3212
+IntelliAgent orchestrates a pipeline of AI agents that take a research topic, gather information from the web, synthesize it, extract structured data, and automatically push results to Trello and email — all from a web dashboard.
 
 ---
 
-## Características Principales
-
-- **Investigación Web Automatizada**: Búsqueda y recopilación de información sobre cualquier tema
-- **Generación de Resúmenes**: Síntesis inteligente de textos largos en resúmenes concisos
-- **Extracción de Datos**: Identificación y estructuración de datos clave en formato JSON
-- **Integración con Trello**: Creación automática de tarjetas de tareas
-- **Notificaciones por Email**: Envío automático de resultados de investigación
-- **Interfaz Web Intuitiva**: Dashboard moderno para gestionar investigaciones
-- **Arquitectura de Microservicios**: Completamente containerizada con Docker
-
----
-
-## Tecnologías Utilizadas
-
-### Backend
-- **Python 3.12+**
-- **FastAPI**: Framework web moderno y rápido
-- **LangGraph**: Orquestación de agentes de IA
-- **LangChain**: Framework para aplicaciones con LLM
-- **OpenAI GPT**: Modelo de lenguaje para investigación y análisis
-- **SQLModel**: ORM para gestión de base de datos
-- **PostgreSQL**: Base de datos relacional
-- **Uvicorn**: Servidor ASGI de alto rendimiento
-
-### Frontend
-- **React 18**: Librería de UI
-- **Vite**: Build tool y dev server
-- **Axios**: Cliente HTTP
-- **CSS3**: Estilos modernos
-
-### DevOps
-- **Docker**: Containerización
-- **Docker Compose**: Orquestación de contenedores
-- **Nginx**: Servidor web para el frontend
-
----
-
-## Arquitectura del Sistema
+## 🧠 What It Does
 
 ```
-┌─────────────────┐
-│   Usuario       │
-└────────┬────────┘
-         │
-    ┌────▼─────┐
-    │ Frontend │ (React + Nginx)
-    │ Port 3000│
-    └────┬─────┘
-         │
-    ┌────▼─────────┐
-    │   Backend    │ (FastAPI)
-    │   Port 8080  │
-    └──┬────────┬──┘
-       │        │
-  ┌────▼───┐  ┌▼──────────────┐
-  │PostgreSQL  │  Agentes IA   │
-  │Port 5432│  │  (LangGraph)  │
-  └─────────┘  └───┬───────────┘
-                   │
-         ┌─────────┴──────────┐
-         │                    │
-    ┌────▼────┐         ┌─────▼──────┐
-    │ OpenAI  │         │   APIs     │
-    │   API   │         │ Externas   │
-    └─────────┘         │(Trello,etc)│
-                        └────────────┘
+User submits a topic
+        │
+        ▼
+ [Web Research Agent] ── searches and gathers sources
+        │
+        ▼
+ [Summarization Agent] ── condenses findings into a concise summary
+        │
+        ▼
+ [Extraction Agent] ── structures key data as JSON
+        │
+        ├──► [Trello Agent] ── creates task cards in your Trello board
+        │
+        └──► [Email Agent] ── delivers results to your inbox
+                │
+                ▼
+      [Dashboard] ── view and manage all investigations
 ```
 
 ---
 
-## Instalación y Configuración
+## ✨ Features
 
-### Prerrequisitos
+- **Automated web research** — searches multiple sources and aggregates findings on any topic
+- **Intelligent summarization** — condenses lengthy content into actionable overviews
+- **Structured data extraction** — outputs key entities and facts as clean JSON
+- **Trello integration** — automatically creates task cards from extracted data
+- **Email delivery** — sends summarized results directly to your inbox
+- **Result persistence** — stores all investigations in PostgreSQL for later review
+- **Web dashboard** — React UI to submit topics, track investigation status, and browse results
 
-- Docker Desktop instalado
-- Docker Compose
-- Cuenta de OpenAI con API Key
-- (Opcional) Cuenta de Trello con API credentials
-- (Opcional) Cuenta de Gmail con contraseña de aplicación
+---
 
-### Paso 1: Clonar el Repositorio
+## 🏗️ Architecture
 
+### Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| **Agent Orchestration** | LangGraph + LangChain |
+| **LLM** | OpenAI GPT-4 |
+| **Backend API** | Python 3.12 · FastAPI · SQLModel |
+| **Database** | PostgreSQL |
+| **Frontend** | React 18 · Vite · Axios |
+| **Infrastructure** | Docker · Docker Compose · Nginx |
+
+---
+
+## ⚙️ Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
+- OpenAI API key
+- Trello API key + token (for task creation)
+- SMTP credentials (for email delivery)
+
+---
+
+## 🚀 Quick Start
+
+**1. Clone the repository**
 ```bash
-git clone https://github.com/tu-usuario/intelliagent.git
-cd intelliagent
+git clone https://github.com/deadlyrat/IntelliAgent.git
+cd IntelliAgent
 ```
 
-### Paso 2: Configurar Variables de Entorno
-
-1. Copiar el archivo de ejemplo:
+**2. Configure environment variables**
 ```bash
 cp .env.example .env
+# Edit .env and fill in your API keys:
+# OPENAI_API_KEY=
+# TRELLO_API_KEY=
+# TRELLO_TOKEN=
+# TRELLO_BOARD_ID=
+# SMTP_HOST=
+# SMTP_USER=
+# SMTP_PASSWORD=
+# DATABASE_URL=postgresql://...
 ```
 
-2. Editar el archivo `.env` con tus credenciales:
-
-```env
-# API Configuration
-API_KEY=tu-api-key-segura
-
-# OpenAI (OBLIGATORIO)
-OPENAI_API_KEY=sk-tu-api-key-de-openai
-OPENAI_MODEL_NAME=gpt-4o-mini
-
-# Email (Opcional)
-EMAIL_ADDRESS=tu-email@gmail.com
-EMAIL_PASSWORD=tu-contraseña-de-aplicacion
-
-# Trello (Opcional)
-TRELLO_API_KEY=tu-trello-api-key
-TRELLO_API_TOKEN=tu-trello-token
-TRELLO_DEFAULT_LIST_ID=id-de-tu-lista
-```
-
-### Paso 3: Construir y Ejecutar
-
+**3. Start the application**
 ```bash
-# Construir e iniciar todos los servicios
 docker-compose up --build
-
-# O en segundo plano
-docker-compose up -d --build
 ```
 
-### Paso 4: Acceder a la Aplicación
-
-- **Frontend**: http://localhost:3000
-- **API Backend**: http://localhost:8080
-- **Documentación API**: http://localhost:8080/docs
-- **PostgreSQL**: localhost:5432
+The app will be available at `http://localhost:3000`.
 
 ---
 
-## Uso de la Aplicación
+## 📸 Screenshots
 
-### Crear una Nueva Investigación
-
-1. Abre el navegador en http://localhost:3000
-2. Ingresa el tema que deseas investigar
-3. (Opcional) Marca las casillas para:
-   - Enviar resultados por correo
-   - Crear tarjeta en Trello
-4. Haz clic en "Iniciar Investigación"
-5. Los resultados aparecerán automáticamente cuando estén listos
-
-### API Endpoints
-
-#### Investigación
-
-```bash
-# Crear nueva investigación
-POST /api/research/tasks/
-{
-  "topic": "Inteligencia Artificial en la medicina",
-  "send_email": true,
-  "email_address": "usuario@ejemplo.com",
-  "create_trello_card": false
-}
-
-# Listar investigaciones
-GET /api/research/tasks/
-
-# Obtener investigación específica
-GET /api/research/tasks/{task_id}
-
-# Eliminar investigación
-DELETE /api/research/tasks/{task_id}
-```
-
-#### Chat (Sistema original)
-
-```bash
-# Enviar mensaje al agente
-POST /api/chats/
-{
-  "message": "Research about renewable energy and email me the results"
-}
-
-# Listar mensajes recientes
-GET /api/chats/recent/
-```
+> _Screenshots coming soon — add them here after running the app locally._
 
 ---
 
-## Estructura del Proyecto
+## 🎓 Academic Context
 
-```
-intelliagent/
-├── backend/
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── ai/
-│   │   │   │   ├── agents.py           # Agentes de email
-│   │   │   │   ├── research_agents.py  # Agentes de investigación
-│   │   │   │   ├── research_tools.py   # Herramientas de IA
-│   │   │   │   ├── llms.py            # Configuración LLM
-│   │   │   │   └── ...
-│   │   │   ├── chat/
-│   │   │   │   ├── models.py          # Modelos de chat
-│   │   │   │   └── routing.py         # Endpoints de chat
-│   │   │   ├── research/
-│   │   │   │   ├── models.py          # Modelos de investigación
-│   │   │   │   └── routing.py         # Endpoints de investigación
-│   │   │   ├── integrations/
-│   │   │   │   └── trello.py          # Cliente de Trello
-│   │   │   ├── myemailer/
-│   │   │   │   └── sender.py          # Envío de emails
-│   │   │   └── db.py                  # Configuración BD
-│   │   └── main.py                    # Punto de entrada
-│   ├── Dockerfile
-│   └── requirements.txt
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx                    # Componente principal
-│   │   ├── main.jsx                   # Punto de entrada
-│   │   └── index.css                  # Estilos
-│   ├── Dockerfile
-│   ├── nginx.conf
-│   ├── package.json
-│   └── vite.config.js
-├── compose.yaml                       # Docker Compose
-├── .env.example                       # Variables de ejemplo
-└── README.md                          # Este archivo
-```
+This project was developed as the **capstone project** for a programming languages course at **Universidad Tecnológica de Panamá**. It demonstrates multi-agent LLM orchestration, full-stack development, external API integration, and containerized deployment.
 
 ---
 
-## Casos de Uso
+## 📄 License
 
-### CU-01: Realizar Investigación y Recibir Resumen
-
-**Actor**: Usuario final
-**Flujo**:
-1. Usuario ingresa tema en la UI
-2. Backend recibe la petición
-3. Agente de IA busca información y la resume
-4. Sistema guarda resultados en BD
-5. Sistema muestra resumen al usuario
-
-### CU-02: Creación de Tarea en Trello
-
-**Actor**: Usuario final
-**Flujo**:
-1. Usuario selecciona opción de Trello
-2. Proporciona ID de lista
-3. Backend envía datos a API de Trello
-4. Se crea tarjeta con información relevante
-5. Sistema confirma creación
-
-### CU-03: Envío de Resultados por Correo
-
-**Actor**: Usuario final
-**Flujo**:
-1. Usuario selecciona opción de email
-2. Proporciona dirección de correo
-3. Backend genera y envía correo
-4. Usuario recibe resultados por email
-
----
-
-## Comandos Útiles de Docker
-
-```bash
-# Ver logs de todos los servicios
-docker-compose logs -f
-
-# Ver logs de un servicio específico
-docker-compose logs -f backend
-
-# Detener todos los servicios
-docker-compose down
-
-# Detener y eliminar volúmenes
-docker-compose down -v
-
-# Reconstruir un servicio específico
-docker-compose up -d --build backend
-
-# Ejecutar comando en contenedor
-docker-compose exec backend bash
-
-# Ver estado de los servicios
-docker-compose ps
-```
-
----
-
-## Desarrollo
-
-### Ejecutar Backend en Desarrollo
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-cd src
-uvicorn main:app --reload
-```
-
-### Ejecutar Frontend en Desarrollo
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
-
-## Troubleshooting
-
-### Error: "OPENAI_API_KEY is required"
-
-Asegúrate de haber configurado la variable `OPENAI_API_KEY` en tu archivo `.env`
-
-### Error de conexión a base de datos
-
-Verifica que el servicio de PostgreSQL esté corriendo:
-```bash
-docker-compose ps db_service
-```
-
-### Frontend no carga
-
-1. Verifica que el backend esté corriendo en el puerto 8080
-2. Revisa la configuración de CORS en `main.py`
-3. Verifica la configuración de nginx en `frontend/nginx.conf`
-
-### Emails no se envían
-
-1. Verifica que uses una **contraseña de aplicación**, no tu contraseña regular de Gmail
-2. Genera una en: https://myaccount.google.com/apppasswords
-3. Asegúrate de tener la verificación en 2 pasos activada
-
----
-
-## Requerimientos Funcionales Implementados
-
-- ✅ RF-001: Iniciar tarea de investigación automatizada
-- ✅ RF-002: Generar resumen a partir de múltiples fuentes
-- ✅ RF-003: Extraer datos clave en formato JSON
-- ✅ RF-004: Crear tareas automáticamente en Trello
-- ✅ RF-005: Enviar resultados por correo electrónico
-- ✅ RF-006: Almacenar resultados del proyecto
-- ✅ RF-007: Visualizar resultados en interfaz de usuario
-
----
-
-## Mejoras Futuras
-
-- [ ] Implementar autenticación de usuarios
-- [ ] Agregar búsqueda web real (Tavily, Serper API)
-- [ ] Soporte para múltiples idiomas
-- [ ] Exportación de resultados a PDF
-- [ ] Integración con más servicios (Notion, Slack, etc.)
-- [ ] Dashboard de analíticas
-- [ ] Sistema de notificaciones en tiempo real
-- [ ] Modo oscuro en la interfaz
-
----
-
-## Licencia
-
-Este proyecto es parte de un trabajo académico para la Universidad Tecnológica de Panamá.
-
----
-
-## Contacto
-
-Para preguntas o sugerencias, contactar a:
-- Pablo Aguirre
-- José Herrera
-
----
-
-## Agradecimientos
-
-- Prof. José Chiru - Facilitador de Lenguajes de Programación
-- Universidad Tecnológica de Panamá
-- Comunidad de LangChain y OpenAI
-
----
-
-**Desarrollado con ❤️ para el curso de Lenguajes de Programación**
+MIT — see [LICENSE](LICENSE) for details.
