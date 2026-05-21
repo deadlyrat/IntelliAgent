@@ -97,6 +97,12 @@ La app estara disponible en `http://localhost:3000`.
 
 ---
 
+## Vista Previa del Repositorio
+
+<img src="assets/preview.png" width="100%" alt="Repositorio IntelliAgent en GitHub" />
+
+---
+
 ## Contexto Academico
 
 Este proyecto fue desarrollado como **proyecto final** para el curso de Lenguajes de Programacion en la **Universidad Tecnologica de Panama**. Demuestra orquestacion de LLMs multi-agente, desarrollo full-stack, integracion con APIs externas y despliegue en contenedores.
